@@ -25,7 +25,7 @@ import quiz.medicheck.MedicalCheck;
  * 
  * 1. filtering - 일련의 집합(collection)에서 원하는 element들만 뽑아내는 역할.
  * 
- * 2. mapping - 특정 대상에서 원하는 하나의 값을 뽑아내는 역할
+ * 2. mapping - 각각의 대상마다 특정 값을 뽑아내는 역할
  * 
  * 3. sorting - java에서 제공해줌.
  * 
