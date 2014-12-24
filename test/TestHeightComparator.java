@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import quiz.medicheck.MedicalCheck;
-import answer.medicheck.oop.soring.HeightComparator;
-import answer.medicheck.oop.soring.WeightComparator;
+import answer.medicheck.oop.sorting.HeightComparator;
+import answer.medicheck.oop.sorting.WeightComparator;
 
 
 public class TestHeightComparator {
