@@ -1,0 +1,11 @@
+filter.boy = answer.medicheck.oop.filter.BoyFilter
+filter.girl = answer.medicheck.oop.filter.GirlFilter
+
+mapper.bmi = answer.medicheck.oop.map.BmiMapper
+mapper.height = answer.medicheck.oop.map.HeightMapper
+mapper.weight = answer.medicheck.oop.map.WeightMapper
+
+sorter.height = answer.medicheck.oop.sorting.HeightComparator
+sorter.weight = answer.medicheck.oop.sorting.WeightComparator
+sorter.height.desc = answer.medicheck.oop.sorting.HeightComparator(false)
+sorter.weight.desc = answer.medicheck.oop.sorting.WeightComparator(false)
