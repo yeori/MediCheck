@@ -11,7 +11,6 @@ public class HeightMapper implements Mapper<Double, MedicalCheck> {
 
 	@Override
 	public Double map(MedicalCheck type) {
-		// TODO Auto-generated method stub
 		return type.getHeight();
 	}
 
