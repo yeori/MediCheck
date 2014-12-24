@@ -9,3 +9,4 @@ sorter.height = answer.medicheck.oop.sorting.HeightComparator
 sorter.weight = answer.medicheck.oop.sorting.WeightComparator
 sorter.height.desc = answer.medicheck.oop.sorting.HeightComparator(false)
 sorter.weight.desc = answer.medicheck.oop.sorting.WeightComparator(false)
+sorter.name = answer.medicheck.oop.sorting.NameComparator
