@@ -15,6 +15,10 @@ import java.util.Scanner;
 import answer.medicheck.oop.context.MediCheckContext;
 import answer.medicheck.oop.filter.Filter;
 import answer.medicheck.oop.map.Mapper;
+import answer.medicheck.oop.sorting.CompositeComparator;
+import answer.medicheck.oop.sorting.GenderComparator;
+import answer.medicheck.oop.sorting.HeightComparator;
+import answer.medicheck.oop.sorting.NameComparator;
 import quiz.medicheck.MedicalCheck;
 
 /**
@@ -67,8 +71,8 @@ public class OOPVersion {
 
 		
 		// 키가 가장 작은 학생, 가장 무거운 학생
-		printLowestStudent(medicalCheckList, "가장 키가 작은 학생");		
-		printBiggestStudent(medicalCheckList, "가장 무거운 학생");
+//		printLowestStudent(medicalCheckList, "가장 키가 작은 학생");		
+//		printBiggestStudent(medicalCheckList, "가장 무거운 학생");
 
 		
 		// 정렬 - 키의 오름차순으로 출력하기 .... < ... < ....
@@ -107,6 +111,18 @@ public class OOPVersion {
 		 * 위와 같이 출력될 수 있도록 Comparator구현을 만들어보세요.
 		 * 
 		 */
+		
+		// ORDER BY gender, height desc, name asc
+		CompositeComparator ccomp = new CompositeComparator(
+				new GenderComparator(), 
+				new HeightComparator(false), 
+				new NameComparator());
+		
+		printStudents("다중정렬(여자먼저 > 키내림차순> 이름오름차순)", 
+				medicalCheckList, 
+				ccomp, 
+				new OutputStreamWriter(System.out) );
+		
 	}
 	
 	public static List<MedicalCheck> filtering ( List<MedicalCheck> mChecks, Filter<MedicalCheck> filter ) {
@@ -160,57 +176,6 @@ public class OOPVersion {
 		scanner.close();
 		return medicalCheckList;
 	}
-	/**
-	 * 가장 키가 작은 학생을 화면에 출력
-	 * @param medicalCheckList 각 학생의 신체검사 정보를 모은 리스트
-	 * @param title 화면 출력시 보여질 타이틀
-	 */
-	private static void printLowestStudent(
-			List<MedicalCheck> medicalCheckList, 
-			String title) {
-		
-		MedicalCheck lowestData = medicalCheckList.get(0);
-		for (int i = 0; i < medicalCheckList.size(); i++) {
-			MedicalCheck ith_student = medicalCheckList.get(i);
-
-			if (ith_student.getHeight() < lowestData.getHeight()) {
-				lowestData = ith_student;
-			}
-		}
-
-		// 화면으로 출력
-		System.out.println(String.format("[%s]", title));
-		System.out.println(String.format(" %s %s : %.1f", 
-				lowestData.getStudentID(), 
-				lowestData.getName(), 
-				lowestData.getHeight()));
-		System.out.println();
-	}
-	
-	/**
-	 * 가장 무거운 학생을 화면에 출력
-	 * @param medicalCheckList 각 학생의 신체검사 정보를 모은 리스트
-	 * @param title 화면 출력시 보여질 타이틀
-	 */
-	private static void printBiggestStudent(
-			List<MedicalCheck> medicalCheckList,
-			String title) {
-
-		MedicalCheck biggest = medicalCheckList.get(0);
-		for (int i = 0; i < medicalCheckList.size(); i++) {
-			MedicalCheck ith_student = medicalCheckList.get(i);
-			if (ith_student.getWeight() > biggest.getWeight()) {
-				biggest = medicalCheckList.get(i);
-			}
-		}
-		// 화면으로 출력
-		System.out.println(String.format("[%s]", title));
-		System.out.println(String.format(" %s %s : %.1f", 
-				biggest.getStudentID(), 
-				biggest.getName(), 
-				biggest.getWeight()));
-		System.out.println();
-	}
 	
 	/**
 	 * 주어진 out을 PrintWriter로 캐스팅 또는 wrapping하는 메소드입니다.
@@ -245,10 +210,10 @@ public class OOPVersion {
 			Comparator<MedicalCheck> comp, 
 			Writer out) {
 		/*
-		 * printStudents 를 호출하는 쪽(여기서는 main메소드)에서는 원하는 구체적인 
+		 * printStudents 를 호출하는 쪽(여기서는 main메소드)에서는 구체적인 
 		 * 출력 방향(파일인지, 콘솔인지, 네트워크인지)을 지정해서 호출하고,
-		 * 이 메소드안에서는 출력의 실제 구현을 추상 클래스인 Writer 타입으로 참조하기 때문에
-		 * 구체적인 출력방향에 대해서는 알 필요가 없게 합니다.
+		 * 이 메소드안에서는 출력의 실제 구현을 추상 클래스인 Writer 타입으로 참조함으로써
+		 * 구체적인 출력방향에 대해서는 알 필요가 없게 됩니다.
 		 * 
 		 * out 파라미터를 통해서 스트림 참조를 건네받은 printStudents메소드 안에서는
 		 * Writer.println 등의 메소드로 뭔가를 스트림에 써넣을 수 있다는 것만 알면 되고
@@ -268,11 +233,12 @@ public class OOPVersion {
 		writer.printf("[%s]\n", title);
 		while ( itr.hasNext() ) {
 			MedicalCheck mc = itr.next();
-			writer.println(String.format("%2d %4s %4s %3.1fcm",
+			writer.println(String.format("%2d %4s %4s %3.1fcm %3.1fkg",
 					cnt++,
 					mc.getStudentID(),
 					mc.getName(),
-					mc.getHeight()));
+					mc.getHeight(),
+					mc.getWeight()));
 		}
 		writer.println();
 		writer.flush();

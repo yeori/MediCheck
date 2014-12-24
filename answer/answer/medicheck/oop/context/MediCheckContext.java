@@ -74,7 +74,6 @@ public class MediCheckContext {
 	private void register ( ClassLoader cLoader, String key, String fqName, String bool) {
 		try {
 			Class<?> cls = cLoader.loadClass(fqName);
-			Constructor<?> [] cs = cls.getConstructors();
 			Constructor<?> constructor = cls.getConstructor(Boolean.TYPE);
 			Object instance = constructor.newInstance(Boolean.valueOf(bool));
 			moduleMap.put(key, instance);
