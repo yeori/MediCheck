@@ -1,0 +1,2 @@
+fiter.boy = answer.medicheck.oop.filter.BoyFilter
+filter.girl = answer.medicheck.oop.filter.GrilFilter
